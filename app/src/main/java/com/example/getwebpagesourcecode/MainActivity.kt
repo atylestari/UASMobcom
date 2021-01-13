@@ -1,26 +1,27 @@
 package com.example.getwebpagesourcecode
 
-import android.app.Activity
-import android.app.DownloadManager
-import android.app.DownloadManager.Request.NETWORK_MOBILE
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.*
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
 class MainActivity : AppCompatActivity() {
+    var https = "HTTP://"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getActionBar()?.setTitle("GET WEB page Source code");
+        getSupportActionBar()?.setTitle("GET WEB page Source code");
+
         val spinner: Spinner = findViewById(R.id.sp_http)
         val reqbtn: Button = findViewById(R.id.btn)
         val text_url: EditText = findViewById(R.id.text_url)
-        val
+        val textView: TextView = findViewById(R.id.tv)
 
         ArrayAdapter.createFromResource(
             this,
@@ -35,8 +36,7 @@ class MainActivity : AppCompatActivity() {
             val queue = Volley.newRequestQueue(this)
             val url = spinner.selectedItem.toString()+ text_url.toString()
 
-            val stringRequest = StringRequest(
-                NETWORK_MOBILE.GET, url,
+            val stringRequest = StringRequest(Request.Method.GET, url,
                 Response.Listener<String> { response ->
                     textView.text = response.toString()
                 },
